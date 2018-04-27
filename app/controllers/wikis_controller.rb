@@ -1,5 +1,6 @@
 class WikisController < ApplicationController
   def show
+    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://uwikipedia.org"
     q = params[:q]
     video = Wiki.find_by(title: q)
     if video

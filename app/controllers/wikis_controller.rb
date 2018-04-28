@@ -7,10 +7,11 @@ class WikisController < ApplicationController
       @u = video.u
       video.update(count: video.count+1)
     else
+      %x(sh bin/wiki "#{q}")
       u = %x(youtube-dl "ytsearch:#{q}" --get-id)
-      p u
-      Wiki.create(title: q, u: u)
+      video = Wiki.create!(title: q, u: u)
       @u = u
     end
+    @title = video.title
   end
 end

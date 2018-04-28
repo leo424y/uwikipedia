@@ -1,0 +1,32 @@
+#!/bin/bash
+GTTS='en'
+KEY=$*
+
+KEY_=$(echo "$*" | sed -e "s/ /_/g")
+HOST_URL=https://$GTTS.wikipedia.org
+NEW_UUID=$KEY_
+
+main(){
+  mkdir "./$NEW_UUID"
+  dl_wiki_content
+  TXT_CONTENT=$(cat "./$NEW_UUID/r")
+  fix_000
+  gtts-cli -f "./$NEW_UUID/r" -l "$GTTS" -o "./$NEW_UUID/r.mp3";
+  mv "./$NEW_UUID/r.mp3" "./public/wiki/$KEY.mp3"
+  rm -rf "./$NEW_UUID"
+  echo $TXT_CONTENT
+}
+fix_000(){
+  sed -i -- "s/,000/000/g" "./$NEW_UUID/r"
+}
+dl_wiki_content(){
+  curl $HOST_URL/w/api.php \
+    -d format=json \
+    -d action=query \
+    -d prop=extracts \
+    -d exintro= \
+    -d explaintext= \
+    -d titles="$KEY" > "./$NEW_UUID/c.json"
+  echo `jq '.query.pages | to_entries[] | select(.key | startswith("")).value.extract' "./$NEW_UUID/c.json"` | sed "s/\"//g" > "./$NEW_UUID/r"
+}
+main

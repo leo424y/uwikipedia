@@ -1,0 +1,82 @@
+#!/bin/bash
+LIST='Life Long Learning'
+GTTS='en'
+KEY=$*
+
+KEY_=$(echo "$*" | sed -e "s/ /_/g")
+HOST_URL=https://$GTTS.wikipedia.org
+KEY_URL=$HOST_URL/wiki/$KEY_
+NEW_UUID=$KEY_
+
+main(){
+  mkdir "./$NEW_UUID"
+  dl_wiki_content
+  TXT_CONTENT=$(cat "./$NEW_UUID/r")
+  if [ "$( break_short_content )" = 0 ]; then return; fi
+  fix_000
+  gtts-cli -f "./$NEW_UUID/r" -l "$GTTS" -o "./$NEW_UUID/r.mp3";
+  wiki_img_dl
+  resize_img_for_ffmpeg
+  ffmpeg -loop 1 -i "$img_path" -i "./$NEW_UUID/r.mp3" -c:a copy -c:v libx264 -shortest "./$KEY.mp4" -y
+  rm -rf "./$NEW_UUID"; rm -rf "./i$NEW_UUID"
+  mv "./$KEY.mp4" "./public/wiki/$KEY.mp4"
+  mv "./$NEW_UUID/r.mp3" "./public/wiki/$KEY.mp3"
+  youtube_up_video
+  echo $TXT_CONTENT
+}
+break_short_content(){
+  txt_content_size=${#TXT_CONTENT}
+  if [[ $txt_content_size -lt 30 ]]; then
+    rm -rf "./$NEW_UUID"
+    echo 0
+  fi
+}
+fix_000(){
+  sed -i -- "s/,000/000/g" "./$NEW_UUID/r"
+}
+wiki_img_dl(){
+  curl https://en.wikipedia.org/w/api.php \
+    -d action=query \
+    -d prop=pageimages \
+    -d format=json \
+    -d pithumbsize=600 \
+    -d titles="$KEY" > "./$NEW_UUID/image.json"
+
+  image_url=`jq -r '.query.pages | to_entries[].value.thumbnail.source' "./$NEW_UUID/image.json"`
+  echo $image_url
+}
+resize_img_for_ffmpeg(){
+  mkdir "./i$NEW_UUID"
+  cd "./i$NEW_UUID"
+  if wget -q "$image_url"; then
+    COUNTER=0
+    for i in *; do EXT=$(echo $i | awk -F'.' '{print $NF}'); COUNTER=$(($COUNTER + 1)); mv -v "$i" $KEY.$EXT; done
+    convert "$KEY.$EXT" -resize 200% "img.$EXT"
+    img_path="./i$NEW_UUID/img.$EXT"
+  else
+    img_path='./public/wiki/w.jpg'
+  fi
+  cd ..
+}
+dl_wiki_content(){
+  curl $HOST_URL/w/api.php \
+    -d format=json \
+    -d action=query \
+    -d prop=extracts \
+    -d exintro= \
+    -d explaintext= \
+    -d titles="$KEY" > "./$NEW_UUID/c.json"
+  echo `jq '.query.pages | to_entries[] | select(.key | startswith("")).value.extract' "./$NEW_UUID/c.json"` | sed "s/\"//g" > "./$NEW_UUID/r"
+}
+youtube_up_video(){
+  youtube-upload \
+    --title="$KEY on Wikipedia" \
+    --description="See more on wikipedia... $KEY_URL\n$TXT_CONTENT" \
+    --category=Education \
+    --tags="Wikipedia, tts, English, learning, trending, wiki, subtitles, read, listen" \
+    --default-language="en" \
+    --default-audio-language="en" \
+    --playlist "$LIST" \
+    "./public/wiki/$KEY.mp4"
+}
+main

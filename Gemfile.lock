@@ -74,6 +74,7 @@ GEM
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
     crass (1.0.4)
+    detect_language (1.1.0)
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.23)
@@ -206,6 +207,7 @@ DEPENDENCIES
   capybara (>= 2.15, < 4.0)
   chromedriver-helper
   coffee-rails (~> 4.2)
+  detect_language
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   puma (~> 3.11)

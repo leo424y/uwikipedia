@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_27_125919) do
+ActiveRecord::Schema.define(version: 2018_04_28_111439) do
+
+  create_table "videos", force: :cascade do |t|
+    t.string "wiki_id"
+    t.string "yid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "wikis", force: :cascade do |t|
     t.string "title"

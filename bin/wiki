@@ -1,6 +1,6 @@
 #!/bin/bash
-GTTS='en'
-KEY=$*
+KEY=$1
+GTTS=$2
 
 KEY_=$(echo "$*" | sed -e "s/ /_/g")
 HOST_URL=https://$GTTS.wikipedia.org

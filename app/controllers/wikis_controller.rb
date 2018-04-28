@@ -14,12 +14,11 @@ class WikisController < ApplicationController
         wiki.update(count: wiki.count+1)
       else
         wiki = Wiki.create!(title: q, u: lang)
+        %x(sh bin/wiki "#{q}" "#{lang}")
       end
-
-      %x(sh bin/wiki "#{q}" "#{lang}")
       @u = %x(youtube-dl "ytsearch:#{q}" --get-id)
-      wiki.videos.create(yid: @u)
       @title = wiki.title
+      wiki.videos.create(yid: @u)
     end
   end
 end

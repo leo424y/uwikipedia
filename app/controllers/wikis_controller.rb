@@ -6,7 +6,7 @@ class WikisController < ApplicationController
     lang = ( lang == 'ja' ? 'zh' : lang )
     unless q
       @u = '076Ag1ic-nM'
-      @title = 'hi'
+      @title = 'wiki/hi'
     else
       wiki = Wiki.find_by(title: q)
 

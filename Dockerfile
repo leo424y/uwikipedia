@@ -1,7 +1,7 @@
 FROM ruby:2.4.2
 ENV LANG C.UTF-8
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs python ruby jq python-pip && curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod a+rx /usr/local/bin/youtube-dl
-pip install -U requests
+RUN pip install -U requests
 RUN pip install gTTS
 RUN gem install bundler
 RUN mkdir /app

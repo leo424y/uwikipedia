@@ -4,7 +4,6 @@ class WikisController < ApplicationController
     q = params[:q]
     lang = DetectLanguage.simple_detect(q)
     lang = 'zh' if (lang == ('ja' || 'zh-hant' || 'zh-hans'))
-
     unless q
       @u = '076Ag1ic-nM'
       @title = 'wiki/hi'
@@ -17,7 +16,7 @@ class WikisController < ApplicationController
         wiki = Wiki.create!(title: q, u: lang)
         %x(sh bin/wiki "#{q}" "#{lang}")
       end
-      @u = %x(youtube-dl "ytsearch:#{q}" --get-id)
+      @u = %x(youtube-dl "ytsearch:#{q} on uWikipedia.org" --get-id)
       @title = wiki.title
       wiki.videos.create(yid: @u)
     end

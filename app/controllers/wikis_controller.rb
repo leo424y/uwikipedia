@@ -17,14 +17,19 @@ class WikisController < ApplicationController
       if wiki.present?
         wiki.update(count: wiki.count+1)
         @u = wiki.videos.last.yid
+        @audio = wiki.title
+        @autoplay = '0'
       else
         wiki = Wiki.create!(title: q, u: lang)
         # %x(sh bin/wiki "#{q}" "#{lang}")
         YoutubeWorker.perform_async([q, lang])
         @u = %x(youtube-dl "ytsearch:#{q} on uWikipedia.org" --get-id)
+        @audio = 'hi'
+        @autoplay = '1'
+        p @autoplay
       end
       @title = wiki.title
-      wiki.videos.create(yid: @u)
+      wiki.videos.create!(yid: @u)
 
       wiki_data = wikir(@title, lang)
       @summary = wiki_data.summary

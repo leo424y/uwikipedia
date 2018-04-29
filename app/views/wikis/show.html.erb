@@ -4,7 +4,7 @@
 <!-- autoplay=1& -->
 
 <audio id="audio" autoplay>
-    <source src="<%= @title %>.mp3" type="audio/mp3"/>
+    <source src="<%= @audio %>.mp3" type="audio/mp3"/>
 </audio>
 <!-- <button onClick="document.getElementById('audio').play()">Play</button>
 <button onClick="document.getElementById('audio').pause()">Pause</button> -->
@@ -15,7 +15,7 @@
 <!-- &disablekb=1 -->
 <div class="video-background">
     <div class="video-foreground">
-      <iframe src="https://www.youtube.com/embed/<%= @u %>?version=3&controls=0&showinfo=0&rel=0&loop=1&playlist=<%= @u %>&cc_load_policy=1" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/<%= @u %>?version=3&controls=0&showinfo=0&rel=0&loop=1&playlist=<%= @u %>&cc_load_policy=1&autoplay=<%= @autoplay %>" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
 

@@ -26,8 +26,10 @@ services:
       - redis
   redis:
     image: redis
+    sysctls:
+      - net.core.somaxconn=511
     ports:
-      - 6379:6379
+      - "6379:6379"
     volumes:
       - redis-data:/var/lib/redis
     command: redis-server --appendonly yes

@@ -1,7 +1,7 @@
 class WikisController < ApplicationController
   def show
     response.headers.delete('X-Frame-Options')
-    q = ZhConv.convert("zh-cn", params[:q])
+    q = params[:q]
     lang = DetectLanguage.simple_detect(q)
     lang = 'zh' if (lang == ('ja' || 'zh-hant' || 'zh-hans'))
 

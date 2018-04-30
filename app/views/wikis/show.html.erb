@@ -1,28 +1,20 @@
-<!-- <iframe id="ytplayer" type="text/html" width="100%" height="600"
-  src="https://www.youtube.com/embed/<%= @u %>?origin=http://example.com"
-  frameborder="0"></iframe> -->
-<!-- autoplay=1& -->
-
-<audio id="audio" autoplay>
-    <source src="<%= @audio %>.mp3" type="audio/mp3"/>
+<iframe id="ytplayer" type="text/html" width="100%" height="30" src="https://www.youtube.com/embed/<%= @uwiki %>?version=3&controls=0&showinfo=0&rel=0&loop=1&playlist=<%= @uwiki %>&cc_load_policy=1&autoplay=1" frameborder="0"></iframe>
+<audio id="audio" autoplay="autoplay">
+	<source src="<%= @audio %>.mp3" type="audio/mp3"/>
 </audio>
-<!-- <button onClick="document.getElementById('audio').play()">Play</button>
-<button onClick="document.getElementById('audio').pause()">Pause</button> -->
+<!-- <button onClick="document.getElementById('audio').play()">Play</button> <button onClick="document.getElementById('audio').pause()">Pause</button> -->
 
-
-<!-- &playlist=W0LHTWG-UmQ  -->
-<!-- &autoplay=1 -->
 <!-- &disablekb=1 -->
 <div class="video-background">
-    <div class="video-foreground">
-      <iframe src="https://www.youtube.com/embed/<%= @u %>?version=3&controls=0&showinfo=0&rel=0&loop=1&playlist=<%= @u %>&cc_load_policy=1&autoplay=<%= @autoplay %>" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </div>
+	<div class="video-foreground">
+		<iframe src="https://www.youtube.com/embed/<%= @u %>?version=3&controls=0&showinfo=0&rel=0&loop=1&playlist=<%= @u %>&cc_load_policy=1&autoplay=1" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+	</div>
+</div>
 
 <div id="vidtop-content">
-<div class="vid-info">
-	  <h1><%= @title %></h1>
-    <p><%= @summary %></p>
-	 <a href="<%= @fullurl %>" target="_blank">Full article</a>
-  </div>
+	<div class="vid-info">
+		<h1><%= @title %></h1>
+		<p><%= @summary %></p>
+		<a href="<%= @fullurl %>" target="_blank">Full article</a>
+	</div>
 </div>

@@ -8,7 +8,7 @@ class WikisController < ApplicationController
     unless q
       lang = 'en'
       wiki = Wiki.find_by(title: 'Taiwan')
-      @u = 'aA-tOsM6F4Y'
+      @u = 'WKM5jRAUgvU'
       @audio = 'Taiwan'
       @autoplay = '1'
     else

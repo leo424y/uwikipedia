@@ -9,8 +9,9 @@ class WikisController < ApplicationController
     p q
     p lang
     unless q
-      @u = '076Ag1ic-nM'
-      @title = 'wiki/hi'
+      wiki = Wiki.find_by(title: 'Taiwan')
+      @u = '2OzlksZBTiA'
+      @autoplay = '1'
     else
       wiki = Wiki.find_by(title: q)
 
@@ -24,17 +25,14 @@ class WikisController < ApplicationController
         # %x(sh bin/wiki "#{q}" "#{lang}")
         YoutubeWorker.perform_async([q, lang])
         @u = %x(youtube-dl "ytsearch:#{q} on uWikipedia.org" --get-id)
-        @audio = 'hi'
         @autoplay = '1'
-        p @autoplay
       end
-      @title = wiki.title
       wiki.videos.create!(yid: @u)
-
-      wiki_data = wikir(@title, lang)
-      @summary = wiki_data.summary
-      @fullurl = wiki_data.fullurl
     end
+    @title = wiki.title
+    wiki_data = wikir(wiki.title, lang)
+    @summary = wiki_data.summary
+    @fullurl = wiki_data.fullurl
   end
 
   private

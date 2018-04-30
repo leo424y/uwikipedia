@@ -9,7 +9,7 @@ class WikisController < ApplicationController
       lang = 'en'
       wiki = Wiki.find_by(title: 'Taiwan')
       @u = 'WKM5jRAUgvU'
-      @audio = 'Taiwan'
+      @audio = 'wiki/Taiwan'
       @autoplay = '1'
     else
       lang = DetectLanguage.simple_detect(q)

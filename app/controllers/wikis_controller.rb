@@ -4,15 +4,16 @@ class WikisController < ApplicationController
   def show
     response.headers.delete('X-Frame-Options')
     q = params[:q]
-    lang = DetectLanguage.simple_detect(q)
-    (lang = 'zh') if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')
-    p q
-    p lang
+
     unless q
+      lang = 'en'
       wiki = Wiki.find_by(title: 'Taiwan')
       @u = '2OzlksZBTiA'
       @autoplay = '1'
     else
+      lang = DetectLanguage.simple_detect(q)
+      (lang = 'zh') if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')
+
       wiki = Wiki.find_by(title: q)
 
       if wiki.present?

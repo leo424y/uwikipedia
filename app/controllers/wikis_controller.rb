@@ -3,18 +3,19 @@ require 'wikipedia'
 class WikisController < ApplicationController
   def show
     response.headers.delete('X-Frame-Options')
-    q = params[:q]
+    q = params[:q] || 'Taiwan'
+    lang = DetectLanguage.simple_detect(q)
+    lang = 'zh' if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')
 
-    unless q
-      lang = 'en'
-      @title = 'Taiwan'
+    wiki_data = wikir(q, lang)
+    @summary = wiki_data.summary
+    @fullurl = wiki_data.editurl
+    @title = q
+
+    unless @summary
       @u = 'WKM5jRAUgvU'
       @audio = 'wiki/Taiwan'
     else
-      @title = q
-      lang = DetectLanguage.simple_detect(q)
-      (lang = 'zh') if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')
-
       wiki = Wiki.find_by(title: q)
       if wiki.present?
         wiki.update(count: wiki.count+1)
@@ -31,10 +32,6 @@ class WikisController < ApplicationController
       wiki.videos.create!(yid: @u)
       @audio = @title
     end
-    
-    wiki_data = wikir(@title, lang)
-    @summary = wiki_data.summary
-    @fullurl = wiki_data.fullurl
   end
 
   private

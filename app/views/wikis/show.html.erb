@@ -20,6 +20,27 @@
 </div>
 
 <script>
+	function amplifyMedia(mediaElem, multiplier) {
+		var context = new(window.AudioContext || window.webkitAudioContext),
+			result = {
+				context: context,
+				source: context.createMediaElementSource(mediaElem),
+				gain: context.createGain(),
+				media: mediaElem,
+				amplify: function (multiplier) {
+					result.gain.gain.value = multiplier;
+				},
+				getAmpLevel: function () {
+					return result.gain.gain.value;
+				}
+			};
+		result.source.connect(result.gain);
+		result.gain.connect(context.destination);
+		result.amplify(multiplier);
+		return result;
+	}
+	amplifyMedia(document.getElementById('audio'), 3);
+
 	var s = 0;
 	var sw = '';
 
@@ -32,7 +53,7 @@
 		s = sw.length;
 		if (s > 0 && timer > 1) {
 			timer = -1000;
-			window.location = "http://www.uWikipedia.org/wiki/"+sw;
+			window.location = "http://www.uWikipedia.org/wiki/" + sw;
 		} else {
 			timer = timer + 0.5
 		}

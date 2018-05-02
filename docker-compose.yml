@@ -1,12 +1,6 @@
-version: '3.1'
+version: '3'
 volumes:
   redis-data:
-    driver: local
-networks:
-  front-tier:
-    driver: bridge
-  back-tier:
-    driver: bridge
 services:
   web:
     build: .
@@ -14,12 +8,9 @@ services:
     volumes:
       - .:/app
     ports:
-      - "3000"
+      - "3000:3000"
     links:
       - redis
-    networks:
-      - back-tier
-      - front-tier
   sidekiq:
     volumes:
       - .:/app
@@ -30,7 +21,7 @@ services:
     links:
       - redis
   redis:
-    image: redis:latest
+    image: redis
     sysctls:
       - net.core.somaxconn=511
     ports:
@@ -38,4 +29,3 @@ services:
     volumes:
       - redis-data:/var/lib/redis
     command: redis-server --appendonly yes
-    networks: [ "back-tier" ]

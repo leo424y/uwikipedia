@@ -11,6 +11,7 @@ module Uwikipedia
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.web_console.whitelisted_ips = '172.18.0.5'
+    config.force_ssl = true
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

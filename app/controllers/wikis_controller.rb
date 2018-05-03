@@ -5,7 +5,7 @@ class WikisController < ApplicationController
     response.headers.delete('X-Frame-Options')
     p q = params[:q] || 'Taiwan'
     str1_markerstring = '://'
-    str2_markerstring = "."
+    str2_markerstring = '.uwikipedia'
     p base_url = request.base_url
     p sub_domain = base_url[/#{str1_markerstring}(.*?)#{str2_markerstring}/m, 1]
 

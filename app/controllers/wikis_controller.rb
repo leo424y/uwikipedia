@@ -4,8 +4,10 @@ class WikisController < ApplicationController
   def show
     response.headers.delete('X-Frame-Options')
     q = params[:q] || 'Taiwan'
-    lang = DetectLanguage.simple_detect(q)
-    lang = 'zh' if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')
+    lang = params[:lang] || 'en'
+    @lang = lang
+    # lang = DetectLanguage.simple_detect(q)
+    # lang = 'zh' if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')
 
     wiki_data = wikir(q, lang)
     @summary = wiki_data.summary

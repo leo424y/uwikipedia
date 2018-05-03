@@ -6,7 +6,8 @@ class WikisController < ApplicationController
     p q = params[:q] || 'Taiwan'
     str1_markerstring = '://'
     str2_markerstring = "."
-    sub_domain = request.base_url[/#{str1_markerstring}(.*?)#{str2_markerstring}/m, 1]
+    p base_url = request.base_url
+    p sub_domain = base_url[/#{str1_markerstring}(.*?)#{str2_markerstring}/m, 1]
 
     p lang = sub_domain.blank? ? 'en' : sub_domain
     @lang = lang

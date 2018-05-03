@@ -10,9 +10,9 @@ class WikisController < ApplicationController
     wiki_data = wikir(q, lang)
     @summary = wiki_data.summary
     @fullurl = wiki_data.editurl
-    @title = q
+    @title = wiki_data.title
 
-    unless @summary
+    unless params[:q]
       @u = 'WKM5jRAUgvU'
       @audio = 'wiki/Taiwan'
     else
@@ -30,7 +30,7 @@ class WikisController < ApplicationController
       end
       @u = %x(youtube-dl "ytsearch:#{q} song" --get-id)
       wiki.videos.create!(yid: @u)
-      @audio = @title
+      @audio = q
     end
   end
 

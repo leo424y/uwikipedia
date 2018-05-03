@@ -4,7 +4,7 @@ class WikisController < ApplicationController
   def show
     response.headers.delete('X-Frame-Options')
     p q = params[:q] || 'Taiwan'
-    p lang = request.domain.split('.')[0] || 'en'
+    p lang = request.base_url.split('.')[0] || 'en'
     @lang = lang
     # lang = DetectLanguage.simple_detect(q)
     # lang = 'zh' if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')

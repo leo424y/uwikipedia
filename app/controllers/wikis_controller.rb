@@ -8,7 +8,7 @@ class WikisController < ApplicationController
     str2_markerstring = "."
     sub_domain = request.base_url[/#{str1_markerstring}(.*?)#{str2_markerstring}/m, 1]
 
-    p lang = sub_domain || 'en'
+    p lang = sub_domain.blank? ? 'en' : sub_domain
     @lang = lang
     # lang = DetectLanguage.simple_detect(q)
     # lang = 'zh' if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')

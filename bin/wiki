@@ -8,13 +8,12 @@ NEW_UUID=$KEY_
 
 main(){
   mkdir "./$NEW_UUID"
+  mkdir "./$NEW_UUID/$GTTS"
   dl_wiki_content
   TXT_CONTENT=$(cat "./$NEW_UUID/r")
   fix_000
-  gtts-cli -f "./$NEW_UUID/r" -l "$GTTS" -o "./$NEW_UUID/r.mp3";
-  mv "./$NEW_UUID/r.mp3" "./public/wiki/$KEY.mp3"
+  gtts-cli -f "./$NEW_UUID/r" -l "$GTTS" -o "./public/wiki/$GTTS/$KEY.mp3";
   rm -rf "./$NEW_UUID"
-  echo $TXT_CONTENT
 }
 fix_000(){
   sed -i -- "s/,000/000/g" "./$NEW_UUID/r"

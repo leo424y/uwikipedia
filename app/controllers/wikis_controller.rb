@@ -18,7 +18,7 @@ class WikisController < ApplicationController
 
     unless params[:q]
       @u = 'WKM5jRAUgvU'
-      @audio = 'wiki/Taiwan'
+      @audio = 'wiki/en/Taiwan'
     else
       wiki = Wiki.find_by(title: q)
       if wiki.present?
@@ -34,7 +34,7 @@ class WikisController < ApplicationController
       end
       @u = %x(youtube-dl "ytsearch:#{q} song" --get-id)
       wiki.videos.create!(yid: @u)
-      @audio = q
+      @audio = "#{lang}/#{q}"
     end
   end
 

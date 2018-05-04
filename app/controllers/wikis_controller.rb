@@ -20,7 +20,7 @@ class WikisController < ApplicationController
       @u = 'WKM5jRAUgvU'
       @audio = 'wiki/en/Taiwan'
     else
-      wiki = Wiki.find_by(title: q)
+      wiki = Wiki.find_by(title: q, lang: lang)
       if wiki.present?
         wiki.update(count: wiki.count+1)
         # @uwiki = wiki.u
@@ -30,7 +30,7 @@ class WikisController < ApplicationController
         # YoutubeWorker.perform_async([q, lang])
         # @uwiki = %x(youtube-dl "ytsearch:#{q} on uWikipedia.org" --get-id)
         # TODO wiki = Wiki.create!(title: q, u: @uwiki)
-        wiki = Wiki.create!(title: q)
+        wiki = Wiki.create!(title: q, lang: lang)
       end
       @u = %x(youtube-dl "ytsearch:#{q} song" --get-id)
       wiki.videos.create!(yid: @u)

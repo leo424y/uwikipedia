@@ -13,9 +13,12 @@
 
 <div id="vidtop-content">
 	<div class="vid-info">
-		<h1><%= @title %></h1>
+		<h1>
+			<a href="<%= @fullurl %>" target="_blank"><%= @title %></a>
+		</h1>
 		<p><%= @summary %></p>
-		<a href="<%= @fullurl %>" target="_blank">Edit it on Wikipedia!</a>
+		<a href="<%= @editurl %>" target="_blank">Edit</a>
+		<a href="https://github.com/leo424y/uwikipedia/issues" target="_blank">Report Issue</a>
 	</div>
 </div>
 

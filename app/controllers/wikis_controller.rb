@@ -13,7 +13,8 @@ class WikisController < ApplicationController
 
     wiki_data = wikir(q, lang)
     @summary = wiki_data.summary
-    @fullurl = wiki_data.editurl
+    @editurl = wiki_data.editurl
+    @fullurl = wiki_data.fullurl
     @title = wiki_data.title
 
     unless params[:q]

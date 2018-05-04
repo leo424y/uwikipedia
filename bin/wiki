@@ -8,7 +8,7 @@ NEW_UUID=$KEY_
 
 main(){
   mkdir "./$NEW_UUID"
-  mkdir "./$NEW_UUID/$GTTS"
+  mkdir "./public/wiki/$GTTS"
   dl_wiki_content
   TXT_CONTENT=$(cat "./$NEW_UUID/r")
   fix_000

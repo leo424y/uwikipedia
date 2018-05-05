@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2018_04_28_111439) do
 
   create_table "wikis", force: :cascade do |t|
     t.string "title"
+    t.string "lang"
     t.integer "count", default: 1
     t.string "u"
     t.datetime "created_at", null: false

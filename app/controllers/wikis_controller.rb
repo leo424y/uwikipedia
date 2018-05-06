@@ -49,7 +49,7 @@ class WikisController < ApplicationController
           # TODO wiki = Wiki.create!(title: q, u: @uwiki)
           wiki = Wiki.create!(title: q, lang: lang)
         end
-        @u = %x(youtube-dl "ytsearch:#{q} song" --get-id)
+        @u = %x(youtube-dl "ytsearch:#{q}" --get-id)
         wiki.videos.create!(yid: @u)
         @audio = "#{lang}/#{q}"
       end

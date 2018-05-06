@@ -24,18 +24,9 @@
 /yarn-error.log
 
 /public/assets
-/public/wiki
-/public/fr
-/public/en
-/public/es
-/public/jp
-/public/zh
-/public/it
-/public/de
-/public/ru
-/public/ru
-/public/ru
+
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+*.mp3

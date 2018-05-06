@@ -43,7 +43,8 @@ class WikisController < ApplicationController
           # @uwiki = wiki.u
           # (@audio = wiki.title) unless @uwiki
         else
-          %x(sh bin/wiki "#{q}" "#{lang}")
+          %x(gtts-cli -l "#{lang}" -o "./public/wiki/#{lang}/#{q}.mp3" "#{@summary}";)
+          # %x(sh bin/wiki "#{q}" "#{lang}")
           # YoutubeWorker.perform_async([q, lang])
           # @uwiki = %x(youtube-dl "ytsearch:#{q} on uWikipedia.org" --get-id)
           # TODO wiki = Wiki.create!(title: q, u: @uwiki)

@@ -37,21 +37,23 @@ class WikisController < ApplicationController
         @u = 'WKM5jRAUgvU'
         @audio = 'wiki/en/Taiwan'
       else
-        wiki = Wiki.find_by(title: q, lang: lang)
-        @audio = "#{lang}/#{q}"
-        @u = %x(youtube-dl "ytsearch:#{q}" --get-id)
-        if wiki
+        wiki = Wiki.find_by(title: @title, lang: lang)
+        @audio = "#{lang}/#{@title}"
+        @u = %x(youtube-dl "ytsearch:#{@title}" --get-id)
+        if wiki.present?
           wiki.update(count: wiki.count+1)
           # @uwiki = wiki.u
           # (@audio = wiki.title) unless @uwiki
           wiki.videos.create!(yid: @u)
-        elsif @summary
-          %x(gtts-cli -l "#{lang}" -o "./public/wiki/#{lang}/#{q}.mp3" "#{@summary}";)
+        elsif @summary.present?
+          File.open(@title, "w") {|f| f.write(@summary) }
+          %x(gtts-cli -f "#{@title}" -l "#{lang}" -o "./public/wiki/#{lang}/#{@title}.mp3";)
+          FileUtils.rm(@title)
           # %x(sh bin/wiki "#{q}" "#{lang}")
           # YoutubeWorker.perform_async([q, lang])
           # @uwiki = %x(youtube-dl "ytsearch:#{q} on uWikipedia.org" --get-id)
           # TODO wiki = Wiki.create!(title: q, u: @uwiki)
-          wiki = Wiki.create!(title: q, lang: lang)
+          wiki = Wiki.create!(title: @title, lang: lang)
           wiki.videos.create!(yid: @u)
         end
       end

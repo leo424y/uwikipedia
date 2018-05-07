@@ -5,6 +5,7 @@ class WikisController < ApplicationController
     response.headers.delete('X-Frame-Options')
     p q = params[:q] || 'Taiwan'
     p @sub_domain = request.base_url.split('http://')[1].split('.')[0]
+    p (@sub_domain = 'en') if (@sub_domain == 'localhost:3000')
     all_lang = %w(de en es fr it ja pl pt ru zh)
     p lang = (all_lang.include?(@sub_domain) ? @sub_domain : 'en')
     @lang = lang

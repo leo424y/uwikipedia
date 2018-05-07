@@ -11,7 +11,7 @@ class WikisController < ApplicationController
     # lang = DetectLanguage.simple_detect(q)
     # lang = 'zh' if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')
 
-    wiki_data = wikir(q, lang)
+    wiki_data = wikir(q, @sub_domain)
 
     if (q == 'cofacts')
       @summary = '此訊息中所附影片已經被原上傳者下架，且偽造中央社新聞片頭。鉀-40屬天然放射性核種，廣泛存在於農漁產品，人體中也有一定數量的鉀-40。且WHO世界衛生組織、英國衛生部針對鉀攝取建議中提到，基於健康因素，建議成人每日適當攝取約3.5克的鉀，美國國家醫學院則建議鉀攝取4.7克，以維持健康'
@@ -64,7 +64,7 @@ class WikisController < ApplicationController
 
   def wikir title, lang
     Wikipedia.configure {
-      domain "#{@sub_domain}.wikipedia.org"
+      domain "#{@lang}.wikipedia.org"
       path   'w/api.php'
     }
     Wikipedia.find(title)

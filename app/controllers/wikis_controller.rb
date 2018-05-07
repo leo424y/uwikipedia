@@ -82,6 +82,6 @@ class WikisController < ApplicationController
       b=content.split(/[()]/)
     end
     b.each_with_index {|b,i| c << b if i%2==0}
-    c.join.sub!('  ', ' ')
+    c.join.sub('  ', ' ')
   end
 end

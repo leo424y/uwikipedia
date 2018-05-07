@@ -47,6 +47,7 @@ class WikisController < ApplicationController
           # (@audio = wiki.title) unless @uwiki
           wiki.videos.create!(yid: @u)
         elsif @summary.present?
+          @summary = ttsfy @summary, lang
           File.open(@title, "w") {|f| f.write(@summary) }
           %x(gtts-cli -f "#{@title}" -l "#{lang}" -o "./public/wiki/#{@sub_domain}/#{@title}.mp3";)
           FileUtils.rm(@title)
@@ -69,5 +70,18 @@ class WikisController < ApplicationController
       path   'w/api.php'
     }
     Wikipedia.find(title)
+  end
+
+  def ttsfy content, lang
+    zh_lang = %w(ja zh)
+    en_lang = %w(de en es fr it pl pt ru)
+    c=[]
+    if zh_lang.include?(lang)
+      b=content.split(/[（）]/)
+    elsif en_lang.include?(lang)
+      b=content.split(/[()]/)
+    end
+    b.each_with_index {|b,i| c << b if i%2==0}
+    c.join.sub!('  ', ' ')
   end
 end

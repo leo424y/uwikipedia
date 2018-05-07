@@ -76,12 +76,21 @@ class WikisController < ApplicationController
     zh_lang = %w(ja zh)
     en_lang = %w(de en es fr it pl pt ru)
     c=[]
+    
     if zh_lang.include?(lang)
       b=content.split(/[（）]/)
     elsif en_lang.include?(lang)
       b=content.split(/[()]/)
     end
+
     b.each_with_index {|b,i| c << b if i%2==0}
-    c.join.sub('  ', ' ')
+
+    if zh_lang.include?(lang)
+      result = c.join.sub('  ', ' ').delete(',')
+    elsif en_lang.include?(lang)
+      result = c.join.sub('  ', ' ')
+    end
+
+    result
   end
 end

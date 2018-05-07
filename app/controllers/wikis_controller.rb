@@ -4,9 +4,9 @@ class WikisController < ApplicationController
   def show
     response.headers.delete('X-Frame-Options')
     p q = params[:q] || 'Taiwan'
-    p sub_domain = request.base_url.split('http://')[1].split('.')[0]
+    p @sub_domain = request.base_url.split('http://')[1].split('.')[0]
     all_lang = %w(de en es fr it ja pl pt ru zh)
-    p lang = (all_lang.include?(sub_domain) ? sub_domain : 'en')
+    p lang = (all_lang.include?(@sub_domain) ? @sub_domain : 'en')
     @lang = lang
     # lang = DetectLanguage.simple_detect(q)
     # lang = 'zh' if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')
@@ -64,7 +64,7 @@ class WikisController < ApplicationController
 
   def wikir title, lang
     Wikipedia.configure {
-      domain "#{lang}.wikipedia.org"
+      domain "#{@sub_domain}.wikipedia.org"
       path   'w/api.php'
     }
     Wikipedia.find(title)

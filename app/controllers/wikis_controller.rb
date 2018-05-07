@@ -64,7 +64,7 @@ class WikisController < ApplicationController
 
   def wikir title, lang
     Wikipedia.configure {
-      domain "#{@lang}.wikipedia.org"
+      domain "#{lang}.wikipedia.org"
       path   'w/api.php'
     }
     Wikipedia.find(title)

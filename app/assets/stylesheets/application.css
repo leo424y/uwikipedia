@@ -51,7 +51,7 @@
  }
 
  /* Mobile */
-@media only screen and (max-width: 767px) {
+@media all and (max-width: 1024px) {
   .vid-info { font-size: 1.6rem; position: absolute; width: 100%; background: rgba(0,0,0,0.32); color: #fff; padding: 1rem; font-family: Avenir, Helvetica, sans-serif; }
   .vid-info h1 { font-size: 2rem; font-weight: 350; margin-top: 0; line-height: 1.2; }
   .vid-info a { display: block; color: #fff; text-decoration: none; background: rgba(0,0,0,0.5); transition: .6s background; border-bottom: none; margin: 1rem auto; text-align: center; }

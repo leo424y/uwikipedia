@@ -47,8 +47,7 @@ class WikisController < ApplicationController
           # (@audio = wiki.title) unless @uwiki
           wiki.videos.create!(yid: @u)
         elsif @summary.present?
-          @summary = ttsfy @summary, lang
-          File.open(@title, "w") {|f| f.write(@summary) }
+          File.open(@title, "w") {|f| f.write( ttsfy(@summary, lang) ) }
           %x(gtts-cli -f "#{@title}" -l "#{lang}" -o "./public/wiki/#{@sub_domain}/#{@title}.mp3";)
           FileUtils.rm(@title)
           # %x(sh bin/wiki "#{q}" "#{lang}")

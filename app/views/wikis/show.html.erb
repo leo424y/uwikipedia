@@ -46,6 +46,7 @@
 
 	var s = 0;
 	var sw = '';
+	var sw1 = '';
 
 	var int1;
 	var timer = 0;
@@ -54,11 +55,12 @@
 	int1 = setInterval(function () {
 		sw = window.getSelection().toString().trim();
 		s = sw.length;
-		if (s > 0 && timer > 1) {
+		if (s > 0 && sw == sw1 && timer > 1) {
 			timer = -1000;
 			window.location = "https://<%= @sub_domain %>.uwikipedia.org/wiki/" + sw;
 		} else {
-			timer = timer + 2
+			timer = timer + 2;
+			sw1 = sw;
 		}
 	}, 2000);
 </script>

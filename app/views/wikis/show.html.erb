@@ -18,6 +18,11 @@
 		</h1>
 		<p><%= @summary %></p>
 		<a href="<%= @editurl %>" target="_blank">Edit</a>
+		<% @langlinks.each do |langlink| %>
+			<% if (@all_lang_wiki.include? langlink[0]) %>
+			<a href="https://<%= langlink[0] %>.uwikipedia.org/wiki/<%= langlink[1] %>" target="_blank"><%= "#{langlink[0]}: #{langlink[1]}" %></a>
+			<% end %>
+		<% end %>
 		<a href="https://github.com/leo424y/uwikipedia/issues" target="_blank">Report Issue</a>
 	</div>
 </div>

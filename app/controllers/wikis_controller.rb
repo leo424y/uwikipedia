@@ -6,8 +6,9 @@ class WikisController < ApplicationController
     p q = params[:q] || 'Taiwan'
     p @sub_domain = request.base_url.split('http://')[1].split('.')[0]
     p (@sub_domain = 'en') if (@sub_domain == 'localhost:3000')
-    all_lang = %w(de en es fr it ja pl pt ru zh)
-    p lang = (all_lang.include?(@sub_domain) ? @sub_domain : 'en')
+    @all_lang = %w(de en es fr it ja pl pt ru zh)
+    @all_lang_wiki = %w(de en es fr it ja pl pt ru zh simple)
+    p lang = (@all_lang.include?(@sub_domain) ? @sub_domain : 'en')
     @lang = lang
     # lang = DetectLanguage.simple_detect(q)
     # lang = 'zh' if (lang == 'ja' || lang == 'zh-Hant' || lang == 'zh-Hans')
@@ -33,7 +34,7 @@ class WikisController < ApplicationController
       @editurl = wiki_data.editurl
       @fullurl = wiki_data.fullurl
       @title = wiki_data.title
-
+      @langlinks = wiki_data.langlinks
       unless params[:q]
         @u = 'WKM5jRAUgvU'
         @audio = 'wiki/en/Taiwan'

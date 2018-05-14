@@ -22,7 +22,7 @@
 			<% if (@all_lang_wiki.include? langlink[0]) %>
 			<a href="https://<%= langlink[0] %>.uwikipedia.org/wiki/<%= langlink[1] %>"><%= "#{langlink[0]}: #{langlink[1]}" %></a>
 			<% end %>
-		<% end %>
+		<% end if @langlinks %>
 		<a href="https://github.com/leo424y/uwikipedia/issues" target="_blank">Report Issue</a>
 	</div>
 </div>

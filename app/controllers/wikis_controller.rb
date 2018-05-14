@@ -86,7 +86,7 @@ class WikisController < ApplicationController
     b.each_with_index {|b,i| c << b if i%2==0}
 
     if zh_lang.include?(lang)
-      result = c.join.sub('  ', ' ').delete(',')
+      result = c.join.sub('  ', ' ').delete(',')[0..-2]
     elsif en_lang.include?(lang)
       result = c.join.sub('  ', ' ').sub('e.g.', 'such as').sub(',000', '000')
     end

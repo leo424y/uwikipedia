@@ -47,7 +47,7 @@ class WikisController < ApplicationController
           # @uwiki = wiki.u
           # (@audio = wiki.title) unless @uwiki
         elsif @summary.present?
-          @u = %x(youtube-dl "ytsearch:#{@title}" --get-id)
+          @u = %x(youtube-dl "ytsearch:#{@title} #{lang}" --get-id)
           File.open(@title, "w") {|f| f.write( ttsfy(@summary, lang) ) }
           %x(gtts-cli -f "#{@title}" -l "#{lang}" -o "./public/wiki/#{@sub_domain}/#{@title}.mp3";)
           FileUtils.rm(@title)

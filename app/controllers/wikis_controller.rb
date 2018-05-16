@@ -41,13 +41,13 @@ class WikisController < ApplicationController
       else
         wiki = Wiki.find_by(title: @title, lang: @sub_domain)
         @audio = "#{@sub_domain}/#{@title}"
-        @u = %x(youtube-dl "ytsearch:#{@title}" --get-id)
         if wiki.present?
+          @u = wiki.videos.last.yid
           wiki.update(count: wiki.count+1)
           # @uwiki = wiki.u
           # (@audio = wiki.title) unless @uwiki
-          wiki.videos.create!(yid: @u)
         elsif @summary.present?
+          @u = %x(youtube-dl "ytsearch:#{@title}" --get-id)
           File.open(@title, "w") {|f| f.write( ttsfy(@summary, lang) ) }
           %x(gtts-cli -f "#{@title}" -l "#{lang}" -o "./public/wiki/#{@sub_domain}/#{@title}.mp3";)
           FileUtils.rm(@title)

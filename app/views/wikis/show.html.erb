@@ -1,6 +1,6 @@
 <% content_for :title, @title %>
 <iframe id="ytplayer" type="text/html" width="100%" height="0" src="https://www.youtube.com/embed/<%= @uwiki %>?version=3&controls=0&showinfo=0&rel=0&loop=1&playlist=<%= @uwiki %>&cc_load_policy=1&autoplay=1" frameborder="0"></iframe>
-<audio id="audio" autoplay="autoplay">
+<audio id="myAudio" autoplay="autoplay">
 	<source src="<%= @audio %>.mp3" type="audio/mp3"/>
 </audio>
 <!-- <button onClick="document.getElementById('audio').play()">Play</button> <button onClick="document.getElementById('audio').pause()">Pause</button> -->
@@ -48,7 +48,7 @@
 		result.amplify(multiplier);
 		return result;
 	}
-	amplifyMedia(document.getElementById('audio'), 2);
+	// amplifyMedia(document.getElementById('audio'), 2);
 
 	var s = 0;
 	var sw = '';
@@ -69,4 +69,16 @@
 			sw1 = sw;
 		}
 	}, 2000);
+
+	//
+	// var promise = document.querySelector('myAudio').play();
+	//
+	// if (promise !== undefined) {
+	//   promise.then(_ => {
+	//     // Autoplay started!
+	//   }).catch(error => {
+	//     // Autoplay was prevented.
+	//     // Show a "Play" button so that user can start playback.
+	//   });
+	// }
 </script>

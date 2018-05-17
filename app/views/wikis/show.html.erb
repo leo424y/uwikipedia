@@ -6,11 +6,11 @@
 <!-- <button onClick="document.getElementById('audio').play()">Play</button> <button onClick="document.getElementById('audio').pause()">Pause</button> -->
 
 <!-- &disablekb=1&cc_load_policy=1 -->
-<div class="video-background">
+<!-- <div class="video-background">
 	<div class="video-foreground">
 		<iframe src="https://www.youtube.com/embed/<%= @u %>?version=3&controls=0&showinfo=0&rel=0&loop=1&playlist=<%= @u %>&autoplay=1&rel=0" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
 	</div>
-</div>
+</div> -->
 
 <div id="vidtop-content">
 	<div class="vid-info">
@@ -81,4 +81,16 @@
 	//     // Show a "Play" button so that user can start playback.
 	//   });
 	// }
+
+	function random_bg_color() {
+	    var x = Math.floor(Math.random() * 256);
+	    var y = Math.floor(Math.random() * 256);
+	    var z = Math.floor(Math.random() * 256);
+	    var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+	 console.log(bgColor);
+
+	    document.body.style.background = bgColor;
+	    }
+
+	random_bg_color();	
 </script>

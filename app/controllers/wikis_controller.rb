@@ -91,6 +91,6 @@ class WikisController < ApplicationController
       result = c.join.gsub('  ', ' ').gsub('e.g.', 'such as')
     end
 
-    result.sub(',000', '000')
+    result.gsub(',000', '000')
   end
 end

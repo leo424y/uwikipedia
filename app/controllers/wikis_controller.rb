@@ -88,9 +88,9 @@ class WikisController < ApplicationController
     if zh_lang.include?(lang)
       result = c.join.sub('  ', ' ').sub('。', '.')
     elsif en_lang.include?(lang)
-      result = c.join.sub('  ', ' ').sub('e.g.', 'such as').sub(',000', '000')
+      result = c.join.sub('  ', ' ').sub('e.g.', 'such as')
     end
 
-    result
+    result.sub(',000', '000')
   end
 end

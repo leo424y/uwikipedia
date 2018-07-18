@@ -29,6 +29,9 @@
 </div>
 
 <script>
+	// speach playbackRate
+	var vid = document.getElementById("myAudio");vid.playbackRate = 1.5;
+
 	function amplifyMedia(mediaElem, multiplier) {
 		var context = new(window.AudioContext || window.webkitAudioContext),
 			result = {
@@ -92,5 +95,5 @@
 	    document.body.style.background = bgColor;
 	    }
 
-	random_bg_color();	
+	random_bg_color();
 </script>

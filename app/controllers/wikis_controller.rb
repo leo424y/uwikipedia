@@ -1,6 +1,15 @@
 require 'wikipedia'
 
 class WikisController < ApplicationController
+
+  def google_lucky
+    redirect_to "https://www.google.com/search?q=#{URI.encode params[:q]}&btnI"
+  end
+
+  def google
+    redirect_to "https://www.google.com/search?q=#{URI.encode params[:q]}"
+  end
+
   def show
     response.headers.delete('X-Frame-Options')
     q = params[:q] || 'Taiwan'

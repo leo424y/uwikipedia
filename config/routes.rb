@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   get 'zh-sg/:q', to: "wikis#show"
   get 'l/:q', to: "wikis#google_lucky"
   get 'g/:q', to: "wikis#google"
+  get 'search', to: "wikis#google_lucky"
   resources :wikis, only: [:update, :new, :show]
 end
